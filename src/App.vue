@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <a-scene physics="debug: false">
+    <a-scene physics="debug: true;">
       <a-assets>
       </a-assets>
       <!-- Floor -->
@@ -23,8 +23,9 @@
       <a-box dynamic-body position="0 2 -23" width="1" height="4" depth="1" color='#37F'></a-box>
       <a-box dynamic-body position="-1 2 -23" width="1" height="4" depth="1" color='#31F'></a-box>
 
-      <a-sphere id='ball' dynamic-body='mass: 15;' position="0.5 0 10" radius='1'>        
-      </a-sphere>
+      <a-sphere id='ball' dynamic-body='mass: 15;' position="0.5 0 10" radius='1'></a-sphere>
+      <a-entity vive-controls="hand: left"></a-entity>
+      <a-entity vive-controls="hand: right"></a-entity>
     </a-scene>
   </div>
 </template>
@@ -52,11 +53,11 @@ export default {
     var self = this
     setTimeout(function(){
       var el = AFRAME.scenes[0].querySelector('#ball');
-      // el.body.velocity.z -= 50.1
-      el.body.applyImpulse(
-        /* impulse */        new CANNON.Vec3(0, 0, -500),
-        /* world position */ new CANNON.Vec3().copy(el.getAttribute('position'))
-      );
+      el.body.velocity.z -= 100.0
+      // el.body.applyImpulse(
+      //   /* impulse */        new CANNON.Vec3(0, 0, -500),
+      //   /* world position */ new CANNON.Vec3().copy(el.getAttribute('position'))
+      // );
     },100)
   }
 }
