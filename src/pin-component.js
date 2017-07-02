@@ -2,6 +2,7 @@ window.AFRAME.registerComponent('pin', {
   init: function () {
     var self = this
     console.log('loaded pin')
+    self.el.object3D.userData.tipped = false
     return
     setInterval(function () {
       window.k = self.el.body
@@ -13,7 +14,8 @@ window.AFRAME.registerComponent('pin', {
   tick: function () {
     var self = this
     window.z = self.el
-    if (self.el.body.quaternion.toAxisAngle()[1] > 1.0) {
+    if (self.el.object3D.userData.tipped === false && self.el.body !== undefined && self.el.body.quaternion.toAxisAngle()[1] > 1.0) {
+      self.el.object3D.userData.tipped = true
       window.z.object3D.children[0].material.color = new window.THREE.Color(1, 0, 0)
     }
     return
