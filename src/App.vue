@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <a-scene physics="debug: true;">
+    <a-scene physics="debug: false;" shadows>
       <a-assets>
       </a-assets>
       <!-- Floor -->
@@ -8,22 +8,21 @@
       <!-- Dynamic box -->
       <!-- <a-box dynamic-body position="0 0 -10" width="1" height="1" depth="1"></a-box>
       <a-box dynamic-body position="0 0 -11" width="1" height="2" depth="1"></a-box> -->
-      <a-box dynamic-body position="2 1 -18" width="1" height="1" depth="1" color='#16F'></a-box>
-      <a-box dynamic-body position="1 1 -18" width="1" height="1" depth="1" color='#26F'></a-box>
-      <a-box dynamic-body position="0 1 -18" width="1" height="1" depth="1" color='#36F'></a-box>
-      <a-box dynamic-body position="-1 1 -18" width="1" height="1" depth="1" color='#46F'></a-box>
+      <a-box id='pin1' pin dynamic-body position="0 2 -15" width="1" height="4" depth="1" color='#16F'></a-box>
 
-      <a-box dynamic-body position="2 1 -20" width="1" height="2.5" depth="1" color='#36F'></a-box>
-      <a-box dynamic-body position="1 1 -20" width="1" height="2.5" depth="1" color='#46F'></a-box>
-      <a-box dynamic-body position="0 1 -20" width="1" height="2.5" depth="1" color='#56F'></a-box>
-      <a-box dynamic-body position="-1 1 -20" width="1" height="2.5" depth="1" color='#66F'></a-box>
+      <a-box id='pin2' pin dynamic-body position="1 2 -17" width="1" height="4" depth="1" color='#26F'></a-box>
+      <a-box id='pin3' pin dynamic-body position="-1 2 -17" width="1" height="4" depth="1" color='#36F'></a-box>
 
-      <a-box dynamic-body position="2 2 -23" width="1" height="4" depth="1" color='#34F'></a-box>
-      <a-box dynamic-body position="1 2 -23" width="1" height="4" depth="1" color='#35F'></a-box>
-      <a-box dynamic-body position="0 2 -23" width="1" height="4" depth="1" color='#37F'></a-box>
-      <a-box dynamic-body position="-1 2 -23" width="1" height="4" depth="1" color='#31F'></a-box>
+      <a-box id='pin4' pin dynamic-body position="-2 2 -19" width="1" height="4" depth="1" color='#46F'></a-box>
+      <a-box id='pin5' pin dynamic-body position="0 2 -19" width="1" height="4" depth="1" color='#36F'></a-box>
+      <a-box id='pin6' pin dynamic-body position="2 2 -19" width="1" height="4" depth="1" color='#46F'></a-box>
 
-      <a-sphere id='ball' dynamic-body='mass: 15;' position="0.5 0 10" radius='1'></a-sphere>
+      <a-box id='pin7' pin dynamic-body position="-3 2 -21" width="1" height="4" depth="1" color='#56F'></a-box>
+      <a-box id='pin8' pin dynamic-body position="-1 2 -21" width="1" height="4" depth="1" color='#66F'></a-box>
+      <a-box id='pin9' pin dynamic-body position="1 2 -21" width="1" height="4" depth="1" color='#34F'></a-box>
+      <a-box id='pin10' pin dynamic-body position="3 2 -21" width="1" height="4" depth="1" color='#35F'></a-box>
+
+      <a-sphere id='ball' dynamic-body='mass: 100;' position="0.5 0 10" radius='1'></a-sphere>
       <a-entity vive-controls="hand: left"></a-entity>
       <a-entity vive-controls="hand: right"></a-entity>
     </a-scene>
@@ -31,6 +30,7 @@
 </template>
 
 <script>
+require('./pin-component.js')
 
 export default {
   name: 'app',
@@ -40,6 +40,7 @@ export default {
     }
   },
   beforeCreate () {
+
     AFRAME.registerComponent('controller', {
       init: function () {
         console.log('loaded controller')
@@ -53,7 +54,7 @@ export default {
     var self = this
     setTimeout(function(){
       var el = AFRAME.scenes[0].querySelector('#ball');
-      el.body.velocity.z -= 100.0
+      el.body.velocity.z -= 20.0
       // el.body.applyImpulse(
       //   /* impulse */        new CANNON.Vec3(0, 0, -500),
       //   /* world position */ new CANNON.Vec3().copy(el.getAttribute('position'))
